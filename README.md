@@ -1,3 +1,3 @@
-# kiosk-web-page-rotator
+# kiosk
 Kisok to display web pages
 
