@@ -1,11 +1,12 @@
-docker run -it \
+docker run -it --rm \
     --net host \
     --cpuset-cpus 0 \
     --memory 512mb \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=unix$DISPLAY \
-    -v $HOME/Downloads:/root/Downloads \
-    -v $HOME/.config/google-chrome/:/data \
-    --device /dev/snd \
+    -e DISPLAY \
     --name chrome \
-    jess/chrome
+    chrome
+
+
+    #-v $HOME/Downloads:/root/Downloads \
+    #-v $HOME/.config/google-chrome/:/data \
