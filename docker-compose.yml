@@ -4,17 +4,19 @@ services:
     image: "merchantville/kiosk"
     build: .
     network_mode: "host"
-    mem_limit: "512m"
+    mem_limit: "1g"
     command: |
       --disable-overlay-scrollbar
       --incognito
       --no-default-browser-check
-      --kiosk
       --user-data-dir=/data
       merchantvillenj.gov
+      #--kiosk
     environment:
       - "DISPLAY=unix$DISPLAY"
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
-      - "$HOME/downloads:/root/Downloads"
-      - "$HOME/.config/google-chrome:/data"
+      - "./assets/data/urls.txt:/data/urls.txt"
+      - "./volumes/downloads:/root/Downloads"
+      - "./volumes/google-chrome:/data"
+      - "./volumes/logs:/var/log"
