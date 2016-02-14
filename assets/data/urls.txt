@@ -1,0 +1,2 @@
+#!/bin/bash
+# Place any URL's you wish to rotate on the kiosk below:
