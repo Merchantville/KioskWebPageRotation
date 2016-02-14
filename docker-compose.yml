@@ -1,0 +1,11 @@
+version: '2'
+services:
+  kiosk: 
+    image: "merchantville/kiosk"
+    build: .
+    network_mode: "host"
+    mem_limit: "512m"
+    environment:
+      - "DISPLAY"
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
