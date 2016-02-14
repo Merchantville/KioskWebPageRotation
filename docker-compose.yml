@@ -5,7 +5,13 @@ services:
     build: .
     network_mode: "host"
     mem_limit: "512m"
-    command: --user-data-dir=/opt/chrome
+    command: |
+      --disable-overlay-scrollbar
+      --incognito
+      --no-default-browser-check
+      --kiosk
+      --user-data-dir=/data
+      merchantvillenj.gov
     environment:
       - "DISPLAY=unix$DISPLAY"
     volumes:
