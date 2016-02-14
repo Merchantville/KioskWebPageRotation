@@ -5,7 +5,10 @@ services:
     build: .
     network_mode: "host"
     mem_limit: "512m"
+    command: --user-data-dir=/opt/chrome
     environment:
-      - "DISPLAY"
+      - "DISPLAY=unix$DISPLAY"
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - "$HOME/downloads:/root/Downloads"
+      - "$HOME/.config/google-chrome:/data"
