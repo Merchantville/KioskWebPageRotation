@@ -1,9 +1,9 @@
 version: '2'
 services:
   kiosk: 
-    image: "devurandom/firefox"
-    #image: "merchantville/kiosk"
-    #build: .
+    #image: "devurandom/firefox"
+    image: "merchantville/kiosk:firefox"
+    build: .
     network_mode: "host"
     privileged: true
     mem_limit: "1g"
@@ -14,7 +14,6 @@ services:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
       - "./assets/data/urls.txt:/data/urls.txt"
       - "./volumes/downloads:/root/Downloads"
-      - "./volumes/google-chrome:/data"
 
 
 #--volumes-from storage
