@@ -14,7 +14,7 @@ Kisok to display web pages
  - 1024MB DDR3L-1333 SDRAM
  - 8GB Flash
 
-## Storage Clean Up
+## TODO: Script Storage Clean Up
 
 ### Get .5 GB
 
