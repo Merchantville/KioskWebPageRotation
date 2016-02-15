@@ -13,6 +13,7 @@ Kisok to display web pages
  - Level 2 Cache 2MB
  - 1024MB DDR3L-1333 SDRAM
  - 8GB Flash
+ - TODO: add flash memory
 
 ## TODO: Script Storage Clean Up
 
@@ -28,5 +29,6 @@ Kisok to display web pages
     update-alternatives --config x-session-manager (choose startlxde)
     xhost +local:
     startx
-    export HEIGHT=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $1}'
     export WIDTH=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $2}'
+    export HEIGHT=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $1}'
+    @xrandr --auto --output DVI-1 --primary --mode ${WIDTH}x${HEIGHT} --left-of DVI-0
