@@ -13,6 +13,7 @@ Kisok to display web pages
  - Level 2 Cache 2MB
  - 1024MB DDR3L-1333 SDRAM
  - 8GB Flash
+ - TODO: add flash memory
 
 ## TODO: Script Storage Clean Up
 
