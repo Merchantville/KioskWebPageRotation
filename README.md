@@ -14,7 +14,12 @@ Kisok to display web pages
  - 1024MB DDR3L-1333 SDRAM
  - 8GB Flash
 
-## Storage Clean Up
+## TODO: Script Storage Clean Up
+
+### Get .5 GB
+
+    Uninstall or remove - /usr/lib/{chromium-browser,libreoffice}
+    Cleanup apt - /var/cache/apt/{archive,lists}
 
 # Starting the Kiosk
 
@@ -23,4 +28,5 @@ Kisok to display web pages
     update-alternatives --config x-session-manager (choose startlxde)
     xhost +local:
     startx
-
+    export HEIGHT=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $1}'
+    export WIDTH=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $2}'
