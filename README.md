@@ -28,4 +28,5 @@ Kisok to display web pages
     update-alternatives --config x-session-manager (choose startlxde)
     xhost +local:
     startx
-
+    export HEIGHT=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $1}'
+    export WIDTH=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $2}'
