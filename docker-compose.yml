@@ -3,11 +3,12 @@ services:
   kiosk: 
     #image: "devurandom/firefox"
     image: "merchantville/kiosk:firefox"
+    container_name: kiosk
     build: .
     network_mode: "host"
     privileged: true
     mem_limit: "1g"
-    #command: |
+    #command: -no-remote 
     environment:
       - "DISPLAY=$DISPLAY"
     volumes:

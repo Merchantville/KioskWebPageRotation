@@ -8,4 +8,6 @@ RUN apt-get update && \
     apt-get -y install firefox flashplugin-installer dbus-x11 pulseaudio gstreamer1.0-pulseaudio \
                        gstreamer1.0-plugins-good ubuntu-restricted-extras
 
+RUN apt-get install -y xdotool
+
 ENTRYPOINT ["/usr/bin/firefox"]
