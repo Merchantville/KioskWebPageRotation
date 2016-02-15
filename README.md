@@ -16,6 +16,11 @@ Kisok to display web pages
 
 ## Storage Clean Up
 
+### Get .5 GB
+
+    Uninstall or remove - /usr/lib/{chromium-browser,libreoffice}
+    Cleanup apt - /var/cache/apt/{archive,lists}
+
 # Starting the Kiosk
 
 ### TODO: Add these to Puppet/Consul/Bash
