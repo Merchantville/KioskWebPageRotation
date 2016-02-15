@@ -2,14 +2,6 @@
 
 Kisok to display web pages
 
-## Starting the Kiosk
-
-### TODO: Add these to Puppet/Consul/Bash
-    apt-get install -y lxde-core
-    update-alternatives --config x-session-manager (choose startlxde)
-    xhost +local:
-    startx
-
 # Hardware
 
 ## Intel Compute Stick Linux BOXSTCK1A8LFC
@@ -23,3 +15,12 @@ Kisok to display web pages
  - 8GB Flash
 
 ## Storage Clean Up
+
+# Starting the Kiosk
+
+### TODO: Add these to Puppet/Consul/Bash
+    apt-get install -y lxde-core
+    update-alternatives --config x-session-manager (choose startlxde)
+    xhost +local:
+    startx
+
