@@ -21,6 +21,7 @@ Kisok to display web pages
 
     Uninstall or remove - /usr/lib/{chromium-browser,libreoffice}
     Cleanup apt - /var/cache/apt/{archive,lists}
+    Cleanup docker tmp - /var/lib/docker/tmp/*
 
 # Starting the Kiosk
 
