@@ -1,8 +1,0 @@
-@CHARSET "UTF-8";
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-#tabrotator_toolbar_button {
-  list-style-image: url("chrome://tabrotator/skin/tabrotator.png");
-}
-toolbar[iconsize="small"] #tabrotator_toolbar_button {
-  list-style-image: url("chrome://tabrotator/skin/tabrotator_small.png");
-}
