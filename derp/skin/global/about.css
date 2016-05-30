@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+
+/* about */
+.text-link{
+	margin-left:-6px;
+	margin-top:0px;
+}
+
+.tabrotator-about-box {
+	background-color: white;
+	padding: 13px;
+	padding-top: 5px;
+}
+
+.tabrotator-about-thin {
+	height:10px;
+}
+
+.tabrotator-about-indent {
+	margin-left:10px;
+}
+.tabrotator-about-product-name {
+	font-weight: bold; 
+	font-size: x-large;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.tabrotator-about-sub-title {
+	font-weight: bold;
+}

@@ -1,0 +1,8 @@
+content	tabrotator	content/
+locale	tabrotator	en-US	locale/en-US/
+locale	tabrotator	de-DE	locale/de-DE/
+overlay	chrome://browser/content/browser.xul	chrome://tabrotator/content/overlay.xul
+skin	tabrotator	default skin/global/
+style	chrome://global/content/customizeToolbar.xul	chrome://tabrotator/skin/tabrotator.css
+style	chrome://browser/content/browser.xul	 chrome://tabrotator/skin/tabrotator.css
+style	chrome://navigator/content/navigator.xul	chrome://tabrotator/skin/tabrotator.css

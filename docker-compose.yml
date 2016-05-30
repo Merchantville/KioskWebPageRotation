@@ -11,5 +11,5 @@ services:
       - "DISPLAY=$DISPLAY"
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
-      - "./assets/data/urls.txt:/data/urls.txt"
-      - "./assets/root/mozilla:/root/.mozilla"
+      - "./assets/:/assets"
+#      - "./assets/root/mozilla:/root/.mozilla"

@@ -1,0 +1,87 @@
+Manifest-Version: 1.0
+
+Name: install.rdf
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: +KfTBd1KUHLTjxvJNSJqkQ==
+SHA1-Digest: Q2PRFTVrluAO2Pd3vaJ0lGgN3F8=
+
+Name: chrome.manifest
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: F6T5F+yeWC+4cB5Ng/QZDQ==
+SHA1-Digest: pIco5omM27yMaPeuy/eb8fe4zRA=
+
+Name: content/about.xul
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: V5UCPu/RXO3mZylDRLPYRw==
+SHA1-Digest: GGGNRnF9UgNniRpRazNybD+rJN8=
+
+Name: content/options.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: LV6etwsXGlbuwHMLyUOPOA==
+SHA1-Digest: L6weHCjxii54t0kz4mZu2Einx3I=
+
+Name: content/options.xul
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: tQbOF27EWIyZZBYKc84UKw==
+SHA1-Digest: eijXbQTKec0cdEiiZfQm/qC+5AU=
+
+Name: content/overlay.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 9EUlTGd0M7WqZetMecXwwA==
+SHA1-Digest: b+qS4qfNkvUfhZmJcQ4gbhPql5c=
+
+Name: content/overlay.xul
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: cP6DMDuoVEpnHfT29dkghQ==
+SHA1-Digest: evsOgD6wN9gjteI7oT5UzCUf33k=
+
+Name: content/time-spinner.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: L13HRFzHpvZb3L+TrrMZJw==
+SHA1-Digest: rpmaz9vLAZKfSXcQm/KF8XUzhNI=
+
+Name: content/time-spinner.xml
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 4mAM3ZnJHOxQZdjWTSNYPg==
+SHA1-Digest: /vUmnZGFpq0PGdEducl72ln1zL0=
+
+Name: defaults/preferences/prefs.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: gU7DZir7hZg5aiM9n0nzDA==
+SHA1-Digest: 3XbdNCyPdJ86DR6cD1CeDD2r7+s=
+
+Name: locale/de-DE/tabrotator.dtd
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ui1qVmM98KLxN2VP4ahKlw==
+SHA1-Digest: CTxHr+QkR0DixhKyBukxsecYzIc=
+
+Name: locale/en-US/tabrotator.dtd
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: oXoKorTpqT6yGudD90KZ8w==
+SHA1-Digest: GzW3/0iCn5GFXCps6Uv2rb66Y4Q=
+
+Name: skin/global/about.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: yYiZIkE9odpciuuxF7a21Q==
+SHA1-Digest: derQH/qOg6GfhW1o8j3MoMKPdAA=
+
+Name: skin/global/tabrotator.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: SP9yQRuEiKdnP7zd7AOP3Q==
+SHA1-Digest: dcw9/hp0CklErlkPeM4eSQKlpMY=
+
+Name: skin/global/tabrotator.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: BdEYvBQobMtFj202bf5XtQ==
+SHA1-Digest: gaSpF0x2olUUuc4eM7uPWS/5Oyo=
+
+Name: skin/global/tabrotator_large.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: QuZgXBeoOb7hYxj/x9QvsA==
+SHA1-Digest: UywAPUhy9NjVfe40AbzjvTeqe7g=
+
+Name: skin/global/tabrotator_small.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: lLazHaihyayzFaHMz9UThQ==
+SHA1-Digest: MPAhD/cIa0XQKlXFABlZpddV6fk=
+

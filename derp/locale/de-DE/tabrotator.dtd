@@ -1,0 +1,29 @@
+<!ENTITY tabRotator.key.code "VK_F11">
+<!ENTITY tabRotator.key.modifier "shift">
+<!ENTITY tabRotator.button.label "Tabs rotieren lassen">
+<!ENTITY tabRotator.button.tooltip "wechselt regelmäßig zwischen den offenen Tabs">
+<!ENTITY tabRotator.menu.label "Tabs rotieren lassen">
+<!ENTITY tabRotator.menu.accesskey "R">
+
+<!ENTITY tabRotator.preferences "Einstellungen">
+<!ENTITY tabRotator.preferences.restoreDefaults "Standard">
+<!ENTITY tabRotator.preferences.rotateTime "Rotationsdauer">
+<!ENTITY tabRotator.preferences.rotateTime.description "Die Zeit, die jeder Tab gezeigt wird.">
+<!ENTITY tabRotator.preferences.reloadTab "Tab neu laden">
+<!ENTITY tabRotator.preferences.reloadTab.description "Den aktuellen Tab neu laden, nachdem der Tab Rotator zu ihm gewechselt hat.">
+<!ENTITY tabRotator.preferences.startRunning "Tab Rotator automatisch starten">
+<!ENTITY tabRotator.preferences.startRunning.description "Tab Rotator beim Start von Firefox automatisch starten">
+
+<!ENTITY tabRotator.about "Über">
+<!ENTITY tabRotator.about.name "Tab Rotator">
+<!ENTITY tabRotator.about.version.label "Version">
+<!ENTITY tabRotator.about.createdby.label "Erstellt von">
+<!ENTITY tabRotator.about.homepage.label "Homepage">
+<!ENTITY tabRotator.about.homepage "http://www.davidfichtmueller.de/tabrotator-de.html">
+<!ENTITY tabRotator.about.uses.label "Benutzt">
+<!ENTITY tabRotator.about.uses.description "Das XUL-Element ">
+<!ENTITY tabRotator.about.uses.name "&lt;xul:timespinner&gt;">
+<!ENTITY tabRotator.about.uses.by "von">
+<!ENTITY tabRotator.about.contact.label "Kontakt">
+<!ENTITY tabRotator.about.contact.description "Für Fragen, Feedback, Fehlermeldungen usw. schreibe an:">
+<!ENTITY tabRotator.about.contact.description2 "">

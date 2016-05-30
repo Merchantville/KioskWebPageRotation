@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is timer-spinner.
+   -
+   - The Initial Developer of the Original Code is
+   - Régis Caspar.
+   - Portions created by the Initial Developer are Copyright (C) 2006
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): 
+   -     Hoang Sy Hiep (original idea)
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<bindings xmlns="http://www.mozilla.org/xbl"  xmlns:xbl="http://www.mozilla.org/xbl"  
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+          xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <binding id="timespinner" extends="chrome://global/content/bindings/textbox.xml#textbox">
+    
+    <resources>
+      <stylesheet src="time-spinner.css"/>
+    </resources>
+    
+    <content>
+      <xul:hbox align="center" class="textbox-input-box" 
+                xbl:inherits="context,disabled">
+        <html:input class="textbox-input" flex="1" anonid="input" 
+                    size="8" maxlength="8" 
+                    xbl:inherits="onfocus,onblur,disabled,tabindex,readonly,value,type,accesskey" />
+        <xul:spinbuttons class="spinner-spins" anonid="spins" 
+                         onup="if (this.parentNode.parentNode.up) this.parentNode.parentNode.up(); else up();" 
+                         ondown="if (this.parentNode.parentNode.up) this.parentNode.parentNode.down(); else down();" 
+                         xbl:inherits="disabled" />
+      </xul:hbox>
+    </content>
+    
+    <implementation>
+    
+      <constructor>
+        <![CDATA[
+          
+          this.hasAttribute("step") && ( this.step = 1 * this.getAttribute("step") );
+          this.hasAttribute("faststep") && ( this.faststep = 1 * this.getAttribute("faststep") );
+          this.hasAttribute("value") && ( this.value = this.getAttribute("value") );
+          
+          if ( this.step == 0 )
+            throw "timespinner 'step' attribute can not be '0'";
+        
+          if ( this.faststep == 0 )
+            throw "timespinner 'faststep' attribute can not be '0'";
+        
+          if ( this.faststep <= this.step )
+            throw "timespinner 'faststep' must be greater than 'step'";
+                    
+          if (this.hasAttribute("ampm")) 
+          { 
+            var ampm = this.getAttribute("ampm");
+            
+            if ( !ampm.match(/false|true/) )
+              throw "timespinner 'ampm' must be 'true' or 'false'";
+            
+            var tib = document.getAnonymousElementByAttribute(this, "class", "textbox-input");
+            this.ampm = ampm;
+            tib.setAttribute("size", 11);
+            tib.setAttribute("maxlength", 11);
+          }
+          
+          this.format();
+          
+        ]]>
+      </constructor>
+      
+      <destructor>
+      <![CDATA[
+        
+        this._time = null;
+        
+      ]]>
+      </destructor>      
+      
+      <field name="step">1</field>
+      <field name="faststep">10 * this.step;</field><!-- default: 10 * step -->
+      <field name="ampm">false</field>
+      <field name="_time">new Date();</field>
+      <field name="_currentRange">0</field>
+      <field name="_firstDigit">true</field>
+      
+      <property name="value">
+        <getter>
+        <![CDATA[
+          
+          var hh = this.getHours();
+          var ap = this.getAMPM();
+          
+          if (this.ampm)
+            hh -= ( hh > 12 ) ?  12 : 0;
+          else
+            ap = ""
+          
+          return this._pad2(hh) + ":" + this._pad2( this.getMinutes() ) + 
+                 ":" + this._pad2( this.getSeconds() ) + ap;
+                         
+        ]]>
+        </getter>
+        <setter>
+        <![CDATA[
+          
+          var s = this._time.toGMTString();
+          s = s.replace(/\d{2}:\d{2}:\d{2} GMT/, "");
+          this._time = new Date(s + val);
+          this.format();
+          
+          return this.value;
+          
+        ]]>
+        </setter>
+      </property>
+      
+      <method name="_pad2">
+        <parameter name="aNumber" />
+        <body>
+          <!-- from http://lists.evolt.org/archive/Week-of-Mon-20011217/064415.html -->
+          <![CDATA[
+          
+            var str = '' + aNumber;
+            
+            while (str.length < 2)
+              str = '0' + str;
+            
+            return str;
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="_getRange">
+        <parameter name="aTimePart" />
+        <body>
+          <![CDATA[
+            
+            if ( aTimePart == null )
+              throw "_getRange() parameter is mandatory";
+            
+            switch (aTimePart)
+            {
+              case 'hh': return 0;
+              case 'mm': return 3;
+              case 'ss': return 6;
+              case 'ap': return 9;
+              default: // nothing
+            }
+            
+            throw "_getRange(): bad parameter"
+            return -1;
+            
+          ]]>
+        </body>
+      </method>
+      
+      <method name="getHours">
+        <body>
+        <![CDATA[
+          
+          return this._time.getHours();
+        
+        ]]>
+        </body>
+      </method>
+      
+      <method name="getMinutes">
+        <body>
+        <![CDATA[
+          
+          return this._time.getMinutes();
+        
+        ]]>
+        </body>
+      </method>
+      
+      <method name="getSeconds">
+        <body>
+        <![CDATA[
+          
+          return this._time.getSeconds();
+        
+        ]]>
+        </body>
+      </method>
+      
+      <method name="getAMPM">
+        <body>
+        <![CDATA[
+          
+          var hh = this.getHours();
+          return ( hh > 12 ) ? " PM" : " AM";
+        
+        ]]>
+        </body>
+      </method>
+      
+      <method name="format">
+        <body>
+          <![CDATA[
+            
+            this.inputField.value = this.value;
+            this.log("value: " + this.value + " " + this.id);
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="focused">
+        <body>
+          <![CDATA[
+            
+            var res = false;
+            
+            try
+            {
+              var p = document.commandDispatcher.focusedElement
+                              .parentNode.parentNode;
+              res = ( p.getAttribute("id") == this.id );
+            }
+            catch(e)
+            {
+              // fails silently
+            }
+            
+            return res;
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="adjust">
+        <parameter name="aTimePart" /><!-- 'hh', 'mm', 'ss' or 'ap' -->
+        <parameter name="aStep" /><!-- step -->
+        <body>
+          <![CDATA[
+          
+          if ( this.disabled )
+            return;
+            
+          if ( aStep == null )
+            throw "adjust() parameter is mandatory";
+          
+          if ( aTimePart != null )
+            this._currentRange = this._getRange(aTimePart)
+          
+          if ( !this.focused() )
+            this.focus();
+          
+          aStep = 1 * aStep;
+          
+          switch (this._currentRange)
+          {
+            case 0:
+              this._time.setHours(this.getHours() + aStep);
+              break;
+            case 3:
+              this._time.setMinutes(this.getMinutes() + aStep);
+              break;
+            case 6:
+              this._time.setSeconds(this.getSeconds() + aStep);
+              break;
+            case 9:
+              this._time.setHours(this.getHours() + ((aStep > 0) ? 12 : -12));
+            default:
+              // nothing
+          }
+          
+          //additinal Code added by David Fichtmueller to avoid the timer being set to 00:00:00
+          	if(this.getHours()==0 && this.getMinutes()==0 && this.getSeconds()==0){
+          		if(aStep == Math.abs(aStep)){
+          			this._time.setSeconds(1);
+          		}else{
+          			this._time.setHours(23);
+          			this._time.setMinutes(59);
+          			this._time.setSeconds(59);
+          		}
+            }
+            
+          
+          this.format();
+          this.setSelectionRange(this._currentRange, this._currentRange + 2);
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="up">
+        <parameter name="aTimePart" /><!-- 'hh', 'mm', 'ss' or 'ap' -->
+        <body>
+          <![CDATA[
+          
+          this.adjust( aTimePart, this.step );
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="fastup">
+        <parameter name="aTimePart" /><!-- 'hh', 'mm', 'ss' or 'ap' -->
+        <body>
+          <![CDATA[
+          
+          this.adjust( aTimePart, this.faststep );
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="down">
+        <parameter name="aTimePart" /><!-- 'hh', 'mm', 'ss' or 'ap' -->
+        <body>
+          <![CDATA[
+          
+            this.adjust( aTimePart, -this.step );
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="fastdown">
+        <parameter name="aTimePart" /><!-- 'hh', 'mm', 'ss' or 'ap' -->
+        <body>
+          <![CDATA[
+          
+          this.adjust( aTimePart, -this.faststep );
+          
+          ]]>
+        </body>
+      </method>
+      
+      <method name="log">
+        <parameter name="aMsg" /><!-- debug message -->
+        <body>
+          <![CDATA[
+          
+          // ownerDocument (where the spinner is) _must_ have
+          // a <xul:textbox multiline="true" id="log" ... />
+          // to receive log messages.
+          var L = this.ownerDocument.getElementById("log");
+          L && ( L.value += "\n" + aMsg );
+                    
+          ]]>
+        </body>
+      </method>
+      
+    </implementation>
+    
+    <handlers>
+      
+      <handler event="click" phase="capturing">
+        <![CDATA[
+        
+        var pos = event.target.selectionStart;
+        var ch = this.value.substring(pos, pos + 1);
+        
+        try 
+        {
+          // try catch because this fails with html:div
+          
+          if (event.originalTarget.nodeName == "xul:image")
+          {
+            this.setSelectionRange(this._currentRange, this._currentRange + 2);
+            return;
+          }
+        }
+        catch(e)
+        {
+          // fails silently
+        }
+        
+        this._currentRange = 0;
+        
+        if (ch == " " || ch == ":")
+          --pos;
+        
+        while (pos < (1 * this._currentRange) || pos > (1 * this._currentRange) + 2)
+          this._currentRange = (1 * this._currentRange) + 3;
+                
+        this._firstDigit = true;
+        this.setSelectionRange(this._currentRange, this._currentRange + 2);
+        this.log("EVENT focus: " + this.id + " pos: " + pos + 
+                 " range: " + this._currentRange + " char: '" + ch + "'");
+        
+        ]]>
+      </handler>
+      
+      <handler event="blur" phase="capturing">
+        <![CDATA[
+        
+        this.log("blur: " + this.id);
+        
+        ]]>
+      </handler>
+                  
+      <handler event="keydown">
+        <![CDATA[
+        
+        event.preventDefault();
+        
+        var k = event.keyCode;
+        var num = this.value.substring(this._currentRange, this._currentRange + 2)
+        var ch = String.fromCharCode( (event.keyCode >= 96) ? event.keyCode - 96 + 48 : event.keyCode)
+        // DEL, BACKSPACE, PG_UP, PG_DOWN
+        // UP, DOWN, LEFT, RIGHT, HOME or END
+        var isHandled = ( k == 8 || k == 46 || k == 38 || ( k >= 33 && k <= 40 ) );
+        var isNum = ( ( k >= 96 && k <= 105 ) || ( k >= 49 && k <= 57 ) );  
+        var isAP = ( k == 97 || k == 65 || k == 112 || k == 80 );
+
+        if ( isHandled || !(isNum || isAP) )
+        {
+          return;
+        }
+        
+        if (this._firstDigit)
+        {
+          num = (10 * ch) + (1 * num[1]);
+          this._firstDigit = false;
+        }
+        else
+        {
+          num = (10 * num[0]) + (1 * ch);
+          this._firstDigit = true;
+        }
+          
+        switch (this._currentRange)
+        {
+          case 0:
+            this._time.setHours(num);
+            break;
+          case 3:
+            this._time.setMinutes(num);
+            break;
+          case 6:
+            this._time.setSeconds(num);
+            break;
+          case 9:
+            var ampm = this.value.substring(this._currentRange, this._currentRange + 2)
+            
+            if ( ampm.match(/AM/i) )
+            {
+              if ( k == 112 || k == 80 ) 
+                this._time.setHours(this._time.getHours() + 12);
+            }
+            else
+            {
+              if ( k == 97 || k == 65 ) 
+                this._time.setHours(this._time.getHours() - 12);
+            }
+          default:
+            // nothing
+        }
+         
+        this.format();
+        this.setSelectionRange(this._currentRange, this._currentRange + 2);
+        this.log("keydown: " + event.keyCode);
+        
+        ]]>
+      </handler>
+            
+      <handler event="keypress" keycode="VK_DELETE">
+        <![CDATA[
+        
+        var pos = event.target.selectionStart;
+        this.value = this.value.substring(0, pos) + this.value.substring(pos + 1, this.value.length)
+        event.preventDefault();
+        //~ this.check(false);
+        this.selectionStart = pos;
+        this.selectionEnd = pos;
+        this.log("keypress: VK_DELETE " + this.value);
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_BACK">
+        <![CDATA[
+        
+        var pos = event.target.selectionStart - 1;
+        this.value = this.value.substring(0, pos) + this.value.substring(pos + 1, this.value.length)
+        event.preventDefault();
+        //~ this.check(false);
+        this.selectionStart = pos;
+        this.selectionEnd = pos;
+        this.log("keypress: VK_BACKSPACE " + this.value);
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_RETURN">
+        <![CDATA[
+        
+        event.preventDefault();
+        this.log("keypress: VK_RETURN");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_UP">
+        <![CDATA[
+        
+        this.up();
+        event.preventDefault();
+        this.log("keypress: VK_UP");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_LEFT">
+        <![CDATA[
+        
+        this._currentRange = (1 * this._currentRange) - 3;
+        
+        if (this._currentRange < 0)
+          this._currentRange = 0;
+          
+        event.preventDefault();
+        this._firstDigit = true;
+        this.setSelectionRange(this._currentRange, this._currentRange + 2);
+        this.log("keypress: VK_LEFT");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_RIGHT">
+        <![CDATA[
+        
+        this._currentRange = (1 * this._currentRange) + 3;
+        
+        if (this._currentRange + 2 > this.value.length)
+          this._currentRange = (1 * this._currentRange) - 3;
+        
+        event.preventDefault();
+        this._firstDigit = true;
+        this.setSelectionRange(this._currentRange, this._currentRange + 2);
+        this.log("keypress: VK_RIGHT");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_PAGE_UP">
+        <![CDATA[
+        
+        this.fastup();
+        event.preventDefault();
+        this.log("keypress: VK_PAGE_UP");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_PAGE_DOWN">
+        <![CDATA[
+        
+        this.fastdown();
+        event.preventDefault();
+        this.log("keypress: VK_PAGE_DOWN");
+        
+        ]]>
+      </handler>
+      
+      <handler event="keypress" keycode="VK_DOWN">
+        <![CDATA[
+        
+        this.down();
+        event.preventDefault();
+        this.log("keypress: VK_DOWN");
+        
+        ]]>
+      </handler>
+      
+      <handler event="DOMMouseScroll" >
+        <![CDATA[
+        
+        if ( !this.focused() )
+          this.focus();
+        
+        if ( event.detail && event.detail < 0 )
+          this.up();
+        else 
+          this.down();
+        
+        event.preventDefault();
+        this.log("DOMMouseScroll: direction=" + 
+                 ( ( event.detail < 0 ) ? "up" : "down" ) +
+                 " ; target=" + event.target.id);
+        
+        ]]>
+      </handler>
+      
+    </handlers>
+  
+  </binding>
+  
+</bindings>
+
