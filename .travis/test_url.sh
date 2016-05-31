@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URLS="../assets/urls.txt"
+URLS="assets/urls.txt"
 
 while read URL; do                                                                                                                                 
   RESPONSE_CODE=$(curl --write-out %{http_code} --silent --output /dev/null $URL)                                                                  

@@ -1,2 +1,2 @@
 script:
-- "./scripts/test_url.sh"
+- "./travis/test_url.sh"
