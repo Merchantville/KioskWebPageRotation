@@ -2,6 +2,9 @@
 
 Kisok to display web pages
 
+[![Build Status](https://travis-ci.org/Merchantville/kiosk.png)](https://travis-ci.org/Merchantville/kiosk)
+
+
 # Hardware
 
 ## Intel Compute Stick Linux BOXSTCK1A8LFC
