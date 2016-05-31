@@ -1,2 +1,3 @@
-#!/bin/bash
-# Place any URL's you wish to rotate on the kiosk below:
+http://merchantvillenj.gov/
+http://merchantvillenj.gov/index.php/boro-monthly-calendar/month.calendar/2016/05/31/-
+http://merchantvillenj.gov/index.php/community-center-information

@@ -3,6 +3,7 @@ services:
   kiosk: 
     image: "merchantville/kiosk"
     container_name: kiosk
+    #command: www.nhl.com www.reddit.com
     build: .
     network_mode: "host"
     privileged: true
@@ -11,5 +12,3 @@ services:
       - "DISPLAY=$DISPLAY"
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
-      - "./assets/mozilla/firefox/avfatqu6.default/extensions.ini:/root/.mozilla/firefox/avfatqu6.default/extensions.ini"
-      - "./assets/mozilla/firefox/profiles.ini:/root/.mozilla/firefox/profiles.ini"
