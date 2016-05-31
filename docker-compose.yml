@@ -3,7 +3,6 @@ services:
   kiosk: 
     image: "merchantville/kiosk"
     container_name: kiosk
-    #command: www.nhl.com www.reddit.com
     build: .
     network_mode: "host"
     privileged: true
