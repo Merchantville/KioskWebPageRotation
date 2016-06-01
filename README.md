@@ -2,6 +2,9 @@
 
 Kisok to display web pages
 
+[![Build Status](https://travis-ci.org/Merchantville/kiosk.png)](https://travis-ci.org/Merchantville/kiosk)
+
+
 # Hardware
 
 ## Intel Compute Stick Linux BOXSTCK1A8LFC
@@ -33,3 +36,8 @@ Kisok to display web pages
     export WIDTH=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $2}'
     export HEIGHT=$(xrandr | grep \* | awk '{print $1}' | awk -Fx '{print $1}'
     @xrandr --auto --output DVI-1 --primary --mode ${WIDTH}x${HEIGHT} --left-of DVI-0
+
+```
+{"schemaVersion":16,"addons":[{"id":"tabrotator@davidfichtmueller.de","syncGUID":"QGIuV5F05VcV","location":"app-global","version":"1.2.1.1-signed.1-signed","type":"extension","internalName":null,"updateURL":n
+
+```

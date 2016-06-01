@@ -1,0 +1,8 @@
+SLACK_TOKEN="token="
+CURL=
+#curl -d channel=#notifications "https://slack.com/api/chat.postMessage?${SLACK_TOKEN}&text=derp&as_user=true"
+#
+
+curl -d channel=#notifications "https://slack.com/api/chat.postMessage?${SLACK_TOKEN}&text=Good&username=notifly&icon_emoji=%3Anotifly%3A"
+
+
