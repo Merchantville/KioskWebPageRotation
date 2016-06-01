@@ -28,4 +28,4 @@ COPY assets/prefs.js /usr/lib/firefox-38.3.0/browser/extensions/tabrotator@david
 COPY assets/mozilla/firefox /root/.mozilla/firefox/
 COPY assets/urls.txt /assets/urls.txt
 
-ENTRYPOINT exec firefox $(cat /assets/urls.txt) -fullscreen
+ENTRYPOINT exec firefox $(cat /assets/urls.txt)
