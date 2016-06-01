@@ -12,12 +12,15 @@ RUNNING=`docker inspect --format "{{.Image}}" $CONTAINER_ID`
 
 if [ "$RUNNING" != "$LATEST" ]; then
   echo "Upgrading $IMAGE"
+
+  #TODO Create upstart scripts
   #stop kiosk
   #start kiosk
-  $DOCKER_COMPOSE kill
-  $DOCKER_COMPOSE rm -f
-  $DOCKER_COMPOSE pull
-  $DOCKER_COMPOSE up -d
+
+  $DOCKER_COMPOSE kill && $DOCKER_COMPOSE rm -f
+  $DOCKER_COMPOSE pull && $DOCKER_COMPOSE up -d
+
+  docker exec kiosk xdotool key F11
 else
   echo "$IMAGE is up to date."
 fi
