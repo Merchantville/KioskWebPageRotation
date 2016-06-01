@@ -7,7 +7,7 @@ ENV FIREFOX_VERSION="38.3.0" \
 WORKDIR /scratch
 
 # Install required software and font packages
- RUN apk add --update bash curl dbus-x11 libcanberra-gtk2 firefox=${FIREFOX_VERSION}-r1 && \
+ RUN apk add --update bash curl xdotool dbus-x11 libcanberra-gtk2 firefox=${FIREFOX_VERSION}-r1 && \
      export TTFS=$(apk search -q ttf- | grep -v '\-doc') && \
      export FONTS=$(apk search -q font- | grep -v '\-doc') && \
      apk add ${TTFS} ${FONTS} && \
